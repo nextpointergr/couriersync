@@ -20,7 +20,7 @@
   },
   "require": {
     "php": "^8.2",
-    "maatwebsite/excel": "*"
+"maatwebsite/excel": "*" ,
     "illuminate/support": "^10|^11|^12|^13"
 
   }
