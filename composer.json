@@ -1,0 +1,25 @@
+{
+  "name": "nextpointer/courier-sync",
+  "description": "Dynamic Courier Sync for PrestaShop",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Nextpointer\\CourierSync\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Nextpointer\\CourierSync\\CourierSyncServiceProvider"
+      ],
+      "aliases": {
+        "CourierSync": "Nextpointer\\CourierSync\\Facades\\CourierSync"
+      }
+    }
+  },
+  "require": {
+    "php": "^8.2",
+    "maatwebsite/excel": "^3.1"
+  }
+}
