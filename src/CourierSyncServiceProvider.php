@@ -3,29 +3,19 @@
 namespace Nextpointer\CourierSync;
 
 use Illuminate\Support\ServiceProvider;
+// ΠΡΟΣΘΕΣΕ ΑΥΤΕΣ ΤΙΣ ΔΥΟ ΓΡΑΜΜΕΣ:
 use Nextpointer\CourierSync\Models\CourierProvider;
 use Nextpointer\CourierSync\Observers\CourierProviderObserver;
 
-class CourierSyncServiceProvider extends ServiceProvider
-{
-    public function boot()
-    {
-        // Φορτώνουμε τα migrations
+class CourierSyncServiceProvider extends ServiceProvider {
+    public function boot() {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        // Ενεργοποιούμε τον Observer
+        // Τώρα η PHP ξέρει ποιες είναι αυτές οι κλάσεις
         CourierProvider::observe(CourierProviderObserver::class);
-
-        // Publish το config
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/courier-sync.php' => config_path('courier-sync.php'),
-            ], 'config');
-        }
     }
 
-    public function register()
-    {
+    public function register() {
         $this->app->singleton('courier-sync', function () {
             return new CourierSyncManager();
         });

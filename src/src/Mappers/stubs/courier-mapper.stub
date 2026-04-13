@@ -6,13 +6,18 @@ use Nextpointer\CourierSync\Contracts\CourierMapper;
 
 class {{class}} implements CourierMapper
 {
+    /**
+     * Μετατρέπει μια γραμμή από το αρχείο της μεταφορικής σε standard array.
+     * * @param array $row Η "ακατέργαστη" γραμμή από το Excel/CSV
+     * @return array Τα καθαρισμένα δεδομένα
+     */
     public function map(array $row): array
     {
         return [
-            'voucher'  => isset($row[0]) ? trim($row[0]) : null,
-            'amount'   => isset($row[1]) ? (float) str_replace(',', '.', $row[1]) : 0,
-            'date'     => $row[2] ?? null,
-            'customer' => isset($row[3]) ? trim($row[3]) : null,
+            'voucher'  => isset($row[0]) ? trim($row[0]) : null, // Αριθμός αποστολής
+            'amount'   => isset($row[1]) ? (float) str_replace(',', '.', $row[1]) : 0, // Ποσό αντικαταβολής
+            'date'     => $row[2] ?? null, // Ημερομηνία
+            'customer' => isset($row[3]) ? trim($row[3]) : null, // Ονοματεπώνυμο
         ];
     }
 }
