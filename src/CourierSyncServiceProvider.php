@@ -3,16 +3,17 @@
 namespace Nextpointer\CourierSync;
 
 use Illuminate\Support\ServiceProvider;
-// ΠΡΟΣΘΕΣΕ ΑΥΤΕΣ ΤΙΣ ΔΥΟ ΓΡΑΜΜΕΣ:
-use Nextpointer\CourierSync\Models\CourierProvider;
-use Nextpointer\CourierSync\Observers\CourierProviderObserver;
 
 class CourierSyncServiceProvider extends ServiceProvider {
     public function boot() {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        // Τώρα η PHP ξέρει ποιες είναι αυτές οι κλάσεις
-        CourierProvider::observe(CourierProviderObserver::class);
+        // Χρησιμοποιούμε το class_exists για να αποφύγουμε το crash κατά το discovery
+        if (class_exists('Nextpointer\CourierSync\Models\CourierProvider')) {
+            \Nextpointer\CourierSync\Models\CourierProvider::observe(
+                \Nextpointer\CourierSync\Observers\CourierProviderObserver::class
+            );
+        }
     }
 
     public function register() {
